@@ -1,0 +1,74 @@
+@startuml
+
+!define Table(name,desc) class name as "desc" << (T,#FFAAAA) >>
+!define primary_key(x) <b><color:red>x</color></b>
+!define foreign_key(x) <color:blue>x</color>
+
+Table(organization, "Organization") {
+  primary_key(OrganizationID) INTEGER
+  Name TEXT
+}
+
+Table(employee, "Employee") {
+  primary_key(EmployeeID) INTEGER
+  foreign_key(OrganizationID) INTEGER
+  FirstName TEXT
+  LastName TEXT
+  Email TEXT
+  PhoneNumber TEXT
+  Position TEXT
+  HireDate TEXT
+  IsActive BOOLEAN
+}
+
+Table(position, "Position") {
+  primary_key(PositionID) INTEGER
+  foreign_key(ExtraWageID) INTEGER
+}
+
+Table(extra_wages, "ExtraWages") {
+  primary_key(ExtraWageID) INTEGER
+  foreign_key(PositionID) INTEGER
+  WageType TEXT
+  StartTime TEXT
+  EndTime TEXT
+  StartDate TEXT
+  EndDate TEXT
+  RecurrencePattern TEXT
+  RecurrenceDays TEXT
+  HourlyRate REAL
+}
+
+Table(working_hours, "WorkingHours") {
+  primary_key(WorkingHoursID) INTEGER
+  foreign_key(EmployeeID) INTEGER
+  StartTime TEXT
+  EndTime TEXT
+  CustomAmount REAL
+}
+
+Table(user, "User") {
+  primary_key(UserID) INTEGER
+  foreign_key(EmployeeID) INTEGER
+  Username TEXT
+  PasswordHash TEXT
+  Role TEXT
+}
+
+Table(working_hours_audit, "WorkingHoursAudit") {
+  primary_key(AuditID) INTEGER
+  foreign_key(WorkingHoursID) INTEGER
+  foreign_key(EmployeeID) INTEGER
+  StartTime TEXT
+  EndTime TEXT
+  ModificationType TEXT
+}
+
+organization -- employee: OrganizationID
+employee -- position: EmployeeID
+position -- extra_wages: PositionID
+employee -- working_hours: EmployeeID
+employee -- user: EmployeeID
+working_hours -- working_hours_audit: WorkingHoursID
+
+@enduml
