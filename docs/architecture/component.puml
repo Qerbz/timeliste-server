@@ -13,8 +13,10 @@ package "Backend" {
   [Authorization] as APIAuth
   [Employee Controller] as EC
   [Report Controller] as RC
+  [Organization Controller] as OC
   [Employee Service] as ES
   [Report Service] as RS
+  [Organization Service] as OS
   [Database Service] as DBS
   [User Controller] as UC
   [User Service] as US
@@ -31,18 +33,20 @@ API ..> APIAuth : <<use>>
 
 API -right-> EC
 API -right-> RC
+API -right-> OC
 API -right-> UC
 
 EC --> ES : <<use>>
 RC --> RS : <<use>>
+OC --> OS : <<use>>
 UC --> US : <<use>>
 
 ES --> DBS : <<use>>
 RS --> DBS : <<use>>
+OS --> DBS : <<use>>
 US --> DBS : <<use>>
 
 DBS --> DB
-
 
 package "Tests" {
   [Frontend Tests] as FT

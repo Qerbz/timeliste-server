@@ -1,0 +1,22 @@
+@startuml
+actor User
+User -> Frontend : Interact with UI
+Frontend -> API : Request with token
+API -> APIAuth : Verify token
+
+' Components within Authorization (APIAuth)
+APIAuth --> DB : Retrieve user roles and permissions
+DB --> APIAuth : Return user roles and permissions
+APIAuth --> Controller : Check permissions
+
+Controller -> Service : Perform action
+Service -> DBService : Access Database
+DBService -> DB : Perform action on data
+DB -> DBService : Return data
+DBService -> Service : Return data
+Service -> Controller : Return data
+Controller -> API : Return data
+API -> Frontend : Return data to UI
+Frontend -> User : Display data
+
+@enduml
