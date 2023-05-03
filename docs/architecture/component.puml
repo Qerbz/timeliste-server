@@ -14,6 +14,10 @@ package "Backend" {
   [Employee Controller] as EC
   [Report Controller] as RC
   [Organization Controller] as OC
+  [Employee Service Interface] as ESI
+  [Report Service Interface] as RSI
+  [Organization Service Interface] as OSI
+  [User Service Interface] as USI
   [Employee Service] as ES
   [Report Service] as RS
   [Organization Service] as OS
@@ -36,10 +40,15 @@ API -right-> RC
 API -right-> OC
 API -right-> UC
 
-EC --> ES : <<use>>
-RC --> RS : <<use>>
-OC --> OS : <<use>>
-UC --> US : <<use>>
+EC --> ESI : <<use>>
+RC --> RSI : <<use>>
+OC --> OSI : <<use>>
+UC --> USI : <<use>>
+
+ESI ..> ES
+RSI ..> RS
+OSI ..> OS
+USI ..> US
 
 ES --> DBS : <<use>>
 RS --> DBS : <<use>>
